@@ -1,0 +1,26 @@
+<Window x:Class="TSCBr.OfficeInstaller.SplashWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:services="clr-namespace:TSCBr.OfficeInstaller.Services"
+        xmlns:controls="clr-namespace:TSCBr.OfficeInstaller.Controls"
+        Title="TSCBr — Carregando Install Office" Width="360" Height="270"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize"
+        ShowInTaskbar="True" Icon="Assets/tscbr-logo.ico" FontFamily="Segoe UI"
+        Background="{StaticResource BackgroundBrush}" Foreground="White">
+  <Border BorderBrush="#1C4B60" BorderThickness="1" Padding="24,22" Background="#0B111D">
+    <Grid>
+      <Grid.RowDefinitions><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+      <StackPanel VerticalAlignment="Center">
+        <Image x:Name="SplashLogo" Source="Assets/tscbr-logo.ico" Width="60" Height="64" HorizontalAlignment="Center" />
+        <TextBlock Text="TSCBr" FontSize="22" FontWeight="Bold" TextAlignment="Center" Margin="0,8,0,0" />
+        <TextBlock Text="Carregando ferramentas de&#x0a;instalação do Office" FontSize="11" Foreground="#9BAEC3" TextAlignment="Center" LineHeight="17" Margin="0,9,0,0" />
+        <ProgressBar x:Name="StartupLoading" Height="3" Width="210" IsIndeterminate="True" Foreground="#00D4FF" Background="#1A2A3B" BorderThickness="0" Margin="0,16,0,0" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,9,0,0">
+          <controls:BusyIndicator x:Name="StartupBusy" IsActive="True" Width="11" Height="11" Foreground="#00D4FF" Margin="0,0,6,0" />
+          <TextBlock x:Name="StartupStatus" Text="Inicializando…" Foreground="#59849C" FontSize="9" VerticalAlignment="Center" />
+        </StackPanel>
+      </StackPanel>
+      <TextBlock Grid.Row="1" Text="{x:Static services:ApplicationInfo.BuildCaption}" Foreground="#415B72" FontSize="8.5" HorizontalAlignment="Center" Margin="0,12,0,0" />
+    </Grid>
+  </Border>
+</Window>

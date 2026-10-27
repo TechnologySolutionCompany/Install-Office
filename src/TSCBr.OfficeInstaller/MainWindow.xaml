@@ -1,0 +1,132 @@
+<Window x:Class="TSCBr.OfficeInstaller.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:TSCBr.OfficeInstaller.Controls"
+        xmlns:services="clr-namespace:TSCBr.OfficeInstaller.Services"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="TSCBr — Install Office" Width="520" Height="460" MinWidth="460" MinHeight="420"
+        Background="{StaticResource BackgroundBrush}" Foreground="#FFFFFF" FontFamily="Segoe UI"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize"
+        Icon="Assets/tscbr-logo.ico" Closing="Window_Closing" Loaded="Window_Loaded">
+  <shell:WindowChrome.WindowChrome>
+    <shell:WindowChrome CaptionHeight="34" ResizeBorderThickness="5" CornerRadius="0" GlassFrameThickness="0" />
+  </shell:WindowChrome.WindowChrome>
+  <Border BorderBrush="#1A2B40" BorderThickness="1">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="34" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="50" />
+      </Grid.RowDefinitions>
+
+      <Border BorderBrush="#182336" BorderThickness="0,0,0,1" Background="#0B101B">
+        <Grid Margin="11,0,5,0">
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Image x:Name="TitlebarLogo" Source="Assets/tscbr-logo.ico" Width="21" Height="23" Margin="0,0,8,0" />
+            <TextBlock Text="Install Office" Foreground="#A9BDCE" FontSize="10.5" VerticalAlignment="Center" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" shell:WindowChrome.IsHitTestVisibleInChrome="True">
+            <Button Content="&#xE921;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource SmallButton}" Padding="10,7" FontSize="10" Click="Minimize_Click" AutomationProperties.Name="Minimizar" />
+            <Button Content="&#xE922;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource SmallButton}" Padding="10,7" FontSize="10" Click="Maximize_Click" AutomationProperties.Name="Maximizar ou restaurar" />
+            <Button Content="&#xE8BB;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource SmallButton}" Padding="10,7" FontSize="10" Click="Close_Click" AutomationProperties.Name="Fechar" />
+          </StackPanel>
+        </Grid>
+      </Border>
+
+        <Grid Grid.Row="1" Margin="18,14,18,12">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+
+          <Border BorderBrush="#172638" BorderThickness="0,0,0,1" Padding="0,0,0,12" Margin="0,0,0,12">
+            <Grid>
+              <Grid.ColumnDefinitions><ColumnDefinition Width="54" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+              <Image x:Name="BrandLogo" Source="Assets/tscbr-logo.ico" Width="42" Height="46" HorizontalAlignment="Left" />
+              <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="INSTALL OFFICE" FontSize="14" FontWeight="Bold" Foreground="#F3F8FC" />
+                <TextBlock Text="Instalação do pacote Office com recursos oficiais da Microsoft" FontSize="10.5" Foreground="{StaticResource MutedBrush}" Margin="0,5,0,0" TextWrapping="Wrap" />
+              </StackPanel>
+              <Button x:Name="AboutButton" Grid.Column="2" VerticalAlignment="Center" Style="{StaticResource SmallButton}" Background="#102633" Padding="9,7" Margin="8,0,0,0" Click="About_Click" AutomationProperties.Name="Sobre o aplicativo">
+                <TextBlock Text="SOBRE" FontSize="11" FontWeight="Bold" Foreground="{StaticResource CyanBrush}" />
+              </Button>
+            </Grid>
+          </Border>
+
+          <ScrollViewer x:Name="ContentScroll" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" PanningMode="VerticalOnly">
+          <Grid VerticalAlignment="Top">
+            <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+          <StackPanel>
+            <Border x:Name="InstallSurface">
+            <Button x:Name="InstallButton" Style="{StaticResource ActionCard}" Click="Install_Click"
+                    Background="#073345" BorderBrush="#0A718A" MinHeight="70" AutomationProperties.Name="Instalar Microsoft Office">
+              <Grid Margin="13,10">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="41" /><ColumnDefinition Width="*" /><ColumnDefinition Width="15" /></Grid.ColumnDefinitions>
+                <TextBlock Text="&#xE896;" FontFamily="Segoe MDL2 Assets" FontSize="24" Foreground="#6AE5FF" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                  <TextBlock x:Name="InstallLabel" Text="Instalar Microsoft Office" FontSize="13.5" FontWeight="SemiBold" TextWrapping="Wrap" />
+                  <TextBlock x:Name="InstallSubtitle" Text="LTSC Professional Plus 2024 · 64 bits" FontSize="10" Foreground="#8DAFBE" Margin="0,4,0,0" TextWrapping="Wrap" />
+                </StackPanel>
+                <TextBlock x:Name="InstallChevron" Grid.Column="2" Text="›" Foreground="#3BC3DF" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <controls:BusyIndicator x:Name="InstallBusy" Grid.Column="2" Foreground="#6AE5FF" Width="13" Height="13" VerticalAlignment="Center" AutomationProperties.Name="Operação do Office em andamento" />
+              </Grid>
+            </Button>
+            </Border>
+
+            <Border x:Name="ActivationInfoSurface" Background="#0C1A26" BorderBrush="#1B3346" BorderThickness="1" CornerRadius="9" Margin="0,8,0,0">
+              <Grid Margin="13,10">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="41" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                <TextBlock Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="22" Foreground="#8DAFBE" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                  <Grid>
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                    <TextBlock Text="Ativação" FontSize="13.5" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <Button x:Name="ActivationGuideButton" Grid.Column="1" Content="Abrir opções oficiais de ativação" Style="{StaticResource SmallButton}" Foreground="{StaticResource CyanBrush}" Background="#102633" FontSize="9.5" Padding="8,4" Margin="8,0,0,0" Click="ActivationGuide_Click"
+                            ToolTip="Abre a documentação oficial da Microsoft sobre ativação" AutomationProperties.Name="Abrir opções oficiais de ativação" />
+                  </Grid>
+                  <TextBlock x:Name="ActivationInfoText" Text="Após concluir a instalação, ative o Microsoft Office utilizando uma licença válida associada à sua conta Microsoft ou à sua organização." FontSize="10" Foreground="#8DAFBE" Margin="0,4,0,0" TextWrapping="Wrap" />
+                </StackPanel>
+              </Grid>
+            </Border>
+          </StackPanel>
+
+          <Grid Grid.Row="1" MinHeight="34" Margin="0,6,0,6">
+            <Button x:Name="StopButton" Content="Parar e remover instalação" Style="{StaticResource DangerButton}" FontSize="10.5" Padding="10,6" HorizontalAlignment="Left" Visibility="Collapsed" Click="Stop_Click" />
+            <Button x:Name="UninstallButton" Content="Desinstalar todo o Office" Style="{StaticResource DangerButton}" FontSize="10.5" Padding="10,6" HorizontalAlignment="Left" Visibility="Collapsed" Click="Uninstall_Click" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+              <Button x:Name="CopyLogButton" Content="Copiar log" Style="{StaticResource SmallButton}" Padding="7,5" FontSize="9" Click="CopyLog_Click" IsEnabled="False" ToolTip="Copiar o log da última operação para enviar ao suporte" />
+              <Button x:Name="OpenLogButton" Content="Ver log" Style="{StaticResource SmallButton}" Padding="7,5" FontSize="9" Click="OpenLog_Click" IsEnabled="False" Margin="0,0,3,0" />
+              <Button x:Name="RefreshButton" Content="↻  Atualizar" Style="{StaticResource SmallButton}" Padding="7,5" Click="Refresh_Click" FontSize="10" />
+            </StackPanel>
+          </Grid>
+
+          <Border x:Name="StatusBorder" Grid.Row="2" Background="#0C1320" BorderBrush="#1B2D42" BorderThickness="1" CornerRadius="8" Padding="12,10">
+            <StackPanel>
+              <Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                <controls:BusyIndicator x:Name="StatusBusy" Width="12" Height="12" Foreground="{StaticResource CyanBrush}" Margin="0,0,7,0" VerticalAlignment="Center" AutomationProperties.Name="Carregando" />
+                <TextBlock x:Name="StatusTitle" Grid.Column="1" Text="Verificando o Office…" FontWeight="SemiBold" FontSize="11" Foreground="{StaticResource CyanBrush}" TextWrapping="Wrap" VerticalAlignment="Center" />
+                <Border x:Name="StatusBadge" Grid.Column="2" Background="#102331" CornerRadius="3" Padding="6,3" Margin="8,0,0,0" VerticalAlignment="Center">
+                  <TextBlock x:Name="BadgeText" Text="AGUARDE" Foreground="{StaticResource CyanBrush}" FontSize="8" FontWeight="Bold" />
+                </Border>
+              </Grid>
+              <TextBlock x:Name="StatusDetail" Text="Preparando as ferramentas do Office." Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" FontSize="10.5" LineHeight="15" Margin="0,5,0,0" />
+              <ProgressBar x:Name="InstallProgress" Height="3" Margin="0,9,0,0" Foreground="{StaticResource CyanBrush}" Background="#1A2540" BorderThickness="0" Visibility="Collapsed" Minimum="0" Maximum="100" />
+            </StackPanel>
+          </Border>
+          </Grid>
+          </ScrollViewer>
+          <ContentControl x:Name="AboutHost" Grid.Row="1" Visibility="Collapsed" />
+        </Grid>
+
+      <Border Grid.Row="2" Background="#070B13" BorderBrush="#182638" BorderThickness="0,1,0,0">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+          <TextBlock FontSize="9.5" Foreground="{StaticResource MutedBrush}" HorizontalAlignment="Center">
+            <Run Text="Plataforma Desenvolvida por " /><Hyperlink x:Name="AuthorLink" NavigateUri="https://www.linkedin.com/in/estev%C3%A3o-miguel-a22057171/" RequestNavigate="Author_RequestNavigate" Foreground="{StaticResource CyanBrush}" TextDecorations="None"><Run Text="Estevão dos Santos" /></Hyperlink>
+          </TextBlock>
+          <TextBlock Text="© 2026 TSCBr · Technology Solution Company Br" Foreground="#526174" FontSize="8.5" HorizontalAlignment="Center" Margin="0,5,0,0" />
+        </StackPanel>
+      </Border>
+    </Grid>
+  </Border>
+</Window>

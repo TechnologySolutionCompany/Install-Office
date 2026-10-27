@@ -1,0 +1,35 @@
+# Build
+bin/
+obj/
+dist/
+build/
+artifacts/
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+
+# Ambiente
+.env
+.env.*
+!.env.example
+
+# Logs e temporários
+*.log
+*.tmp
+
+# Pacotes e instaladores
+*.zip
+*.rar
+*.7z
+*.msi
+
+# Executáveis: o setup.exe do Office Deployment Tool é baixado da Microsoft,
+# nunca versionado (veja o README)
+*.exe
+
+# Sistema operacional
+.DS_Store
+Thumbs.db

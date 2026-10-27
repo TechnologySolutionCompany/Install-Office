@@ -1,0 +1,92 @@
+<Application x:Class="TSCBr.OfficeInstaller.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Application.Resources>
+    <ResourceDictionary>
+    <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="Assets/SocialIcons.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <SolidColorBrush x:Key="BackgroundBrush" Color="#070B14" />
+    <SolidColorBrush x:Key="CardBrush" Color="#0E1119" />
+    <SolidColorBrush x:Key="CyanBrush" Color="#00D4FF" />
+    <SolidColorBrush x:Key="MutedBrush" Color="#8899AA" />
+    <Style TargetType="ScrollBar">
+      <Setter Property="Width" Value="6" />
+      <Setter Property="Background" Value="#0A101B" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ScrollBar">
+            <Grid Background="{TemplateBinding Background}">
+              <Track x:Name="PART_Track" IsDirectionReversed="True" Orientation="Vertical" Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}" Value="{TemplateBinding Value}" ViewportSize="{TemplateBinding ViewportSize}">
+                <Track.DecreaseRepeatButton><RepeatButton Command="ScrollBar.PageUpCommand" Focusable="False" Opacity="0" /></Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                  <Thumb Background="#2B465B" MinHeight="20" Margin="1,0">
+                    <Thumb.Template><ControlTemplate TargetType="Thumb"><Border Background="{TemplateBinding Background}" CornerRadius="2" /></ControlTemplate></Thumb.Template>
+                  </Thumb>
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton><RepeatButton Command="ScrollBar.PageDownCommand" Focusable="False" Opacity="0" /></Track.IncreaseRepeatButton>
+              </Track>
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style TargetType="Window">
+      <Setter Property="FontFamily" Value="Segoe UI" />
+      <Setter Property="Foreground" Value="#FFFFFF" />
+      <Setter Property="Background" Value="{StaticResource BackgroundBrush}" />
+    </Style>
+    <Style x:Key="SmallButton" TargetType="Button">
+      <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="12,8" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="ButtonBackground" Background="{TemplateBinding Background}" CornerRadius="5" Padding="{TemplateBinding Padding}">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ButtonBackground" Property="Background" Value="#1A2540" /><Setter Property="Foreground" Value="#FFFFFF" /></Trigger>
+              <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="ButtonBackground" Property="Background" Value="#1A2540" /></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.4" /></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource SmallButton}">
+      <Setter Property="Foreground" Value="#FF9595" />
+      <Setter Property="Background" Value="#2B141C" />
+      <Setter Property="Padding" Value="15,9" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style x:Key="ActionCard" TargetType="Button">
+      <Setter Property="Background" Value="{StaticResource CardBrush}" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="BorderBrush" Value="#1A2540" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+      <Setter Property="VerticalContentAlignment" Value="Stretch" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="CardBorder" CornerRadius="9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+              <ContentPresenter />
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="CardBorder" Property="BorderBrush" Value="#00D4FF" /><Setter TargetName="CardBorder" Property="Background" Value="#141824" /></Trigger>
+              <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="CardBorder" Property="BorderBrush" Value="#00D4FF" /><Setter TargetName="CardBorder" Property="BorderThickness" Value="2" /></Trigger>
+              <Trigger Property="IsPressed" Value="True"><Setter TargetName="CardBorder" Property="Background" Value="#102534" /></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.65" /><Setter Property="Cursor" Value="Arrow" /></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

@@ -1,0 +1,127 @@
+<UserControl x:Class="TSCBr.OfficeInstaller.AboutView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Background="{StaticResource BackgroundBrush}" Foreground="#FFFFFF" FontFamily="Segoe UI"
+        UseLayoutRounding="True" SnapsToDevicePixels="True"
+        Loaded="View_Loaded" Unloaded="View_Unloaded" IsVisibleChanged="View_IsVisibleChanged" SizeChanged="View_SizeChanged">
+  <UserControl.Resources>
+    <Style x:Key="AboutCard" TargetType="Border">
+      <Setter Property="Background" Value="#0C1320" />
+      <Setter Property="BorderBrush" Value="#1B2D42" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="9" />
+      <Setter Property="Padding" Value="18" />
+    </Style>
+    <Style x:Key="CardTitle" TargetType="TextBlock">
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#F3F8FC" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="Margin" Value="0,0,0,15" />
+    </Style>
+    <Style x:Key="AboutBody" TargetType="TextBlock">
+      <Setter Property="FontSize" Value="11.5" />
+      <Setter Property="Foreground" Value="#9CAFC1" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="LineHeight" Value="19" />
+    </Style>
+    <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource SmallButton}">
+      <Setter Property="Width" Value="38" />
+      <Setter Property="Height" Value="36" />
+      <Setter Property="Padding" Value="8" />
+      <Setter Property="Background" Value="#152333" />
+      <Setter Property="Margin" Value="0,0,8,0" />
+    </Style>
+    <Style x:Key="MetricTile" TargetType="Border">
+      <Setter Property="Background" Value="#111D2B" />
+      <Setter Property="CornerRadius" Value="6" />
+      <Setter Property="Padding" Value="12,10" />
+      <Setter Property="Margin" Value="0,0,8,8" />
+    </Style>
+    <Style x:Key="MetricLabel" TargetType="TextBlock">
+      <Setter Property="FontSize" Value="10" />
+      <Setter Property="Foreground" Value="#7990A6" />
+      <Setter Property="Margin" Value="0,0,0,5" />
+    </Style>
+    <Style x:Key="MetricValue" TargetType="TextBlock">
+      <Setter Property="FontSize" Value="11.5" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+  </UserControl.Resources>
+    <Grid>
+      <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+      <Button x:Name="BackButton" Content="‹  Voltar à instalação" HorizontalAlignment="Left" Style="{StaticResource SmallButton}" Foreground="{StaticResource CyanBrush}" Padding="0,3,8,9" FontSize="11" Click="Back_Click" AutomationProperties.Name="Voltar à instalação" />
+      <ScrollViewer x:Name="AboutScroll" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid x:Name="CardsGrid" Margin="0,0,0,2" VerticalAlignment="Top">
+          <Grid.ColumnDefinitions><ColumnDefinition /><ColumnDefinition /></Grid.ColumnDefinitions>
+          <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+
+          <Border x:Name="InfoCard" Style="{StaticResource AboutCard}" Margin="0,0,7,14">
+            <StackPanel>
+              <TextBlock Text="Informações do aplicativo" Style="{StaticResource CardTitle}" />
+              <Grid Margin="0,0,-8,-8">
+                <Grid.ColumnDefinitions><ColumnDefinition /><ColumnDefinition /></Grid.ColumnDefinitions>
+                <Grid.RowDefinitions><RowDefinition /><RowDefinition /></Grid.RowDefinitions>
+                <Border Style="{StaticResource MetricTile}"><StackPanel><TextBlock Text="Versão" Style="{StaticResource MetricLabel}" /><TextBlock x:Name="VersionValue" Style="{StaticResource MetricValue}" /></StackPanel></Border>
+                <Border Grid.Column="1" Style="{StaticResource MetricTile}"><StackPanel><TextBlock Text="Plataforma" Style="{StaticResource MetricLabel}" /><TextBlock x:Name="PlatformValue" Style="{StaticResource MetricValue}" /></StackPanel></Border>
+                <Border Grid.Row="1" Style="{StaticResource MetricTile}"><StackPanel><TextBlock Text="Runtime" Style="{StaticResource MetricLabel}" /><TextBlock x:Name="RuntimeValue" Style="{StaticResource MetricValue}" /></StackPanel></Border>
+                <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource MetricTile}">
+                  <StackPanel><TextBlock Text="Funcionabilidade" Style="{StaticResource MetricLabel}" />
+                    <StackPanel Orientation="Horizontal" x:Name="HealthIndicator">
+                      <Ellipse x:Name="HealthDot" Width="7" Height="7" Fill="#22C55E" Margin="0,0,7,0" VerticalAlignment="Center" />
+                      <TextBlock x:Name="HealthValue" Text="Funcionando" Style="{StaticResource MetricValue}" />
+                    </StackPanel>
+                  </StackPanel>
+                </Border>
+              </Grid>
+              <TextBlock x:Name="HealthDetail" Style="{StaticResource AboutBody}" FontSize="10" LineHeight="15" Margin="0,12,0,0" />
+            </StackPanel>
+          </Border>
+
+          <Border x:Name="PlatformCard" Grid.Column="1" Style="{StaticResource AboutCard}" Margin="7,0,0,14">
+            <StackPanel>
+              <TextBlock Text="Plataforma de instalação do pacote Office" Style="{StaticResource CardTitle}" />
+              <TextBlock Style="{StaticResource AboutBody}" Text="Ferramenta independente desenvolvida pela TSCBr para automatizar etapas da instalação do pacote Office." />
+              <TextBlock Style="{StaticResource AboutBody}" Margin="0,10,0,0" Text="A instalação usa o Office Deployment Tool oficial da Microsoft, e os arquivos do Office são obtidos dos servidores oficiais da Microsoft." />
+              <TextBlock Style="{StaticResource AboutBody}" Margin="0,10,0,0" Text="Este aplicativo não ativa o Office. A ativação depende de uma licença válida da Microsoft." />
+            </StackPanel>
+          </Border>
+
+          <Border x:Name="DeveloperCard" Grid.Row="1" Style="{StaticResource AboutCard}" Margin="0,0,7,0">
+            <StackPanel>
+              <TextBlock Text="Desenvolvimento" Style="{StaticResource CardTitle}" />
+              <Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition Width="84" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                <Border x:Name="DeveloperBadge" Width="70" Height="70" CornerRadius="35" Background="#111D2B" VerticalAlignment="Center" HorizontalAlignment="Left">
+                  <Image Source="Assets/tscbr-logo.ico" Width="38" Height="41" RenderOptions.BitmapScalingMode="HighQuality" />
+                </Border>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                  <TextBlock Text="Sistema desenvolvido por" Style="{StaticResource AboutBody}" FontSize="10" />
+                  <TextBlock Text="Estevão Miguel dos Santos" FontWeight="SemiBold" FontSize="13" TextWrapping="Wrap" Margin="0,3,0,4" />
+                  <TextBlock Text="Desenvolvedor da Plataforma" Foreground="{StaticResource CyanBrush}" FontSize="10.5" FontWeight="SemiBold" TextWrapping="Wrap" />
+                </StackPanel>
+              </Grid>
+              <TextBlock Text="Desenvolvedor responsável pelo projeto. Criador das plataformas e automações nas mesmas. Mais informações abaixo" Style="{StaticResource AboutBody}" Margin="0,16,0,16" />
+              <StackPanel Orientation="Horizontal">
+                <Button x:Name="LinkedInButton" Style="{StaticResource IconButton}" Click="Link_Click" Tag="LinkedIn" ToolTip="LinkedIn de Estevão Miguel dos Santos" AutomationProperties.Name="LinkedIn de Estevão Miguel dos Santos"><Image Source="{StaticResource LinkedInIcon}" Width="18" Height="18" /></Button>
+                <Button x:Name="GitHubButton" Style="{StaticResource IconButton}" Click="Link_Click" Tag="GitHub" ToolTip="GitHub de Estevão Miguel dos Santos" AutomationProperties.Name="GitHub de Estevão Miguel dos Santos"><Image Source="{StaticResource GitHubIcon}" Width="20" Height="20" /></Button>
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+          <Border x:Name="HelpCard" Grid.Row="1" Grid.Column="1" Style="{StaticResource AboutCard}" Margin="7,0,0,0">
+            <StackPanel>
+              <TextBlock Text="Precisa de ajuda?" Style="{StaticResource CardTitle}" />
+              <TextBlock Style="{StaticResource AboutBody}" Text="Em caso de erro ou comportamento inesperado, copie o log disponível na tela inicial e encaminhe ao suporte responsável pela sua instalação." />
+              <StackPanel x:Name="HelpActions" Orientation="Horizontal" Margin="0,14,0,12">
+                <Button x:Name="WebsiteButton" Style="{StaticResource IconButton}" Click="Link_Click" Tag="Website" ToolTip="Site oficial da TSCBr" AutomationProperties.Name="Site oficial da TSCBr"><Image Source="Assets/tscbr-logo.ico" Width="22" Height="24" /></Button>
+                <Button x:Name="AboutCopyLogButton" Style="{StaticResource IconButton}" Click="CopyLog_Click" ToolTip="Copiar o log da última operação" AutomationProperties.Name="Copiar log"><TextBlock Text="&#xE8C8;" FontFamily="Segoe MDL2 Assets" FontSize="17" Foreground="#BAD0E0" /></Button>
+              </StackPanel>
+              <TextBlock x:Name="SupportFeedback" Style="{StaticResource AboutBody}" FontSize="10" LineHeight="15" Foreground="{StaticResource CyanBrush}" />
+            </StackPanel>
+          </Border>
+        </Grid>
+      </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\tscbr-logo.ico</ApplicationIcon>
+    <AssemblyName>TSCBr_InstaladorOffice</AssemblyName>
+    <RootNamespace>TSCBr.OfficeInstaller</RootNamespace>
+    <Version>3.5.2</Version>
+    <Company>TSCBr - Technology Solution Company Br</Company>
+    <Authors>Estevão Miguel dos Santos</Authors>
+    <Product>TSCBr - Instalador do Office</Product>
+    <AssemblyTitle>TSCBr - Instalador do Microsoft Office</AssemblyTitle>
+    <Description>Instalador do Microsoft Office LTSC 2024 - TSCBr</Description>
+    <Copyright>© 2026 TSCBr. Desenvolvido por Estevão Miguel dos Santos.</Copyright>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Assets\*.ico" />
+    <EmbeddedResource Include="..\..\instalação\MS OFFICE SETUP\**\*"
+                      LogicalName="TSCBr.Payload/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+  <Target Name="CheckOfficePayload" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('..\..\instalação\MS OFFICE SETUP\setup.exe')" Text="O setup.exe do Office Deployment Tool não foi encontrado. Baixe o ODT em https://www.microsoft.com/download/details.aspx?id=49117, extraia e copie o setup.exe para instalação\MS OFFICE SETUP." />
+    <Error Condition="!Exists('..\..\instalação\MS OFFICE SETUP\Configuração.xml')" Text="A Configuração.xml local do Office não foi encontrada." />
+  </Target>
+</Project>
