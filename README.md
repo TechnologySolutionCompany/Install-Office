@@ -132,7 +132,7 @@ A versão pública limita-se à automação de processos de instalação utiliza
 
 ## Autor
 
-Estevão Miguel\
-TSCBr — Technology Solution Company Br
+**Estevão dos Santos**  
+TSCBr — Technology Solution Company
 
 [GitHub](https://github.com/dev-estevao-miguel) · [LinkedIn](https://www.linkedin.com/in/estev%C3%A3o-miguel-a22057171/) · [Site TSCBr](https://www.tscbr.com.br/)
